@@ -1,10 +1,5 @@
 package com.example.springboot.model;
 
-import com.example.springboot.model.Librarian;
-import com.example.springboot.model.Library;
-import com.example.springboot.model.Reader;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +18,6 @@ public class Book {
     @JoinColumn(name = "library")
     private Library library;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "librarian")
     private Librarian addedBy;

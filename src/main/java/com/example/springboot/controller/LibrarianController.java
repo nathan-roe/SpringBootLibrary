@@ -1,7 +1,6 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.model.Book;
-import com.example.springboot.model.Library;
 import com.example.springboot.repository.BookRepository;
 import com.example.springboot.model.Librarian;
 import com.example.springboot.repository.LibrarianRepository;
@@ -45,7 +44,7 @@ public class LibrarianController {
             book.setAddedBy(librarian);
             bookRepository.save(book);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.info("Error: " + e);
             return ResponseEntity.badRequest().build();
         }

@@ -1,12 +1,9 @@
 package com.example.springboot.model;
 
-import com.example.springboot.model.Library;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 public class Librarian {
@@ -24,9 +21,8 @@ public class Librarian {
 
     private String firstName, lastName, email, password;
 
+    @JoinColumn(name = "id")
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "library")
-    @JsonIgnore
     private Library library;
 
     public Librarian() {}
@@ -65,6 +61,8 @@ public class Librarian {
     public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
     }
+
+    @JsonBackReference
     public Library getLibrary() {
         return library;
     }

@@ -3,8 +3,6 @@ package com.example.springboot.controller;
 import com.example.springboot.model.Book;
 import com.example.springboot.model.Library;
 import com.example.springboot.repository.LibraryRepository;
-import com.example.springboot.model.Reader;
-import com.example.springboot.repository.ReaderRepository;
 import com.example.springboot.service.LibraryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -31,8 +27,10 @@ public class LibraryController {
     }
 
     @GetMapping
-    public List<Library> getLibraries() {
-        return libraryRepository.findAll();
+    public List<Library> getLibraries(@RequestParam(value = "sort", defaultValue="id") String sort,
+                                      @RequestParam(value = "order", defaultValue = "asc") String order,
+                                      @RequestParam(value = "filter", defaultValue = "") String filter) {
+        return libraryService.filterAndSort(sort, order, filter);
     }
 
     @GetMapping("/{id}")

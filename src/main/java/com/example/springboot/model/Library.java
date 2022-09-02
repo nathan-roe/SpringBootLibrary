@@ -1,11 +1,9 @@
 package com.example.springboot.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -14,13 +12,12 @@ public class Library {
 
     private String state, city, address1, address2, name;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "library")
     private List<Book> books = new ArrayList<>();;
 
     @OneToMany(mappedBy = "library")
     private List<Librarian> librarians = new ArrayList<>();
-    @JsonIgnore
     @ManyToMany(mappedBy = "libraries")
     private List<Reader> readers;
 
@@ -79,6 +76,7 @@ public class Library {
         return librarians;
     }
 
+    @JsonManagedReference
     public void setLibrarians(List<Librarian> librarians) {
         this.librarians = librarians;
     }
